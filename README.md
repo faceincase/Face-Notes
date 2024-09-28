@@ -13,23 +13,27 @@
 
 
 ## Storage (`.fnote`)
-Effortlessly store hundreds or even thousands of notes, all within just a few megabytes. 
+Effortlessly store hundreds or even thousands of notes, all within just a few megabytes.
+<br>
 File format for Face Notes is called `.fnote` (old: `.facenote`, may cause compatiblity issues, but should work.)
 <br>
-
+<br>
 ![image](https://github.com/user-attachments/assets/2b41fe33-1c5e-495e-9e7b-a438b9e44e45)
 
 <br>
 
 
 
-  # How to use?
-  Download `face_notes.html` file
-  Open `face_notes.html` file by double click or drag it to the browser.
-  Enjoy.
-  
-  # Features
-  CTRL + S to save your note in **`.fnote`** format.
-  Drag **`.fnote`** file to open saved notes.
-  
+# How to use?
+Download `face_notes.html` file
+<br>
+Open `face_notes.html` file by double click or drag it to the browser.
+<br>
+Enjoy.
+<br>
 
+# Features
+CTRL + S to save your note in **`.fnote`** format.
+<br>
+Drag **`.fnote`** file to open saved notes.
+<br>
