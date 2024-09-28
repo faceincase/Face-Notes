@@ -25,6 +25,11 @@ File format for Face Notes is called `.fnote` (old: `.facenote`, may cause compa
 
 
 # How to use?
+
+## Use on github:
+**[Here](https://faceincase.github.io/Face-Notes/face_notes.html)** you can access the site.
+<br>
+## Use locally:
 Download `face_notes.html` file
 <br>
 Open `face_notes.html` file by double click or drag it to the browser.
