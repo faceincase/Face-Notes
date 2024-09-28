@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- FONT -->
+    <link href="https://fonts.googleapis.com/css2?family=Shantell+Sans:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Face Notes</title>
+    <style>
+        body { 
+            font-family: 'Shantell Sans'; 
+            margin: 20px; 
+            background-color: #121212; 
+            color: #e0e0e0;
+        }
+
+        .main {
+            font-size: 32px;
+            font-weight: bold;
+            color: #b999e0;
+            text-align: center;
+        }
+
+        #note { 
+
+            height: 300px; 
+            background-color: #1e1e1e; 
+            color: #e0e0e0; 
+            border: 1px solid #333; 
+            border-radius: 5px; 
+            font-size: 16px;
+            padding: 10px; 
+            overflow-y: auto;
+            outline: none; /* Remove outline when focused */
+
+            font-family: "Consolas";
+        }
+
+        #preview { 
+            border: 1px solid #333; 
+            padding: 10px; 
+            margin-top: 20px; 
+            background-color: #1e1e1e; 
+            border-radius: 5px;
+            font-size: 18px;
+        }
+
+        .bold { 
+            font-weight: bold; 
+        }
+        
+        .italic { 
+            font-style: italic; 
+        }
+
+        .purpel {
+            color: #b999e0;
+        }
+
+        .custom-heading {
+            margin: 1em 0;
+            font-weight: bold;
+        }
+
+        .level-1 {
+            font-size: 2em; /* Style for level 1 */
+        }
+
+        .level-2 {
+            font-size: 1.75em; /* Style for level 2 */
+        }
+
+        .level-3 {
+            font-size: 1.5em; /* Style for level 3 */
+        }
+
+        .level-4 {
+            font-size: 1.25em; /* Style for level 4 */
+        }
+
+        .level-5 {
+            font-size: 1.125em; /* Style for level 5 */
+        }
+
+        .level-6 {
+            font-size: 1em; /* Style for level 6 */
+        }
+
+
+    </style>
+</head>
+<body id="drop-zone">
+
+    <div class="main">Face Notes</div>
+
+    <div id="note" contenteditable="true" placeholder="Write your note here..."></div>
+
+    <div id="preview"></div>
+
+    
+    <script>
+        const noteDiv = document.getElementById('note');
+        const dropZone = document.getElementById('drop-zone');
+        const preview = document.getElementById('preview');
+
+        // Function to update the preview of the note
+        function updatePreview() {
+            const text = noteDiv.innerText;
+            const formattedText = formatMarkdown(text);
+            preview.innerHTML = formattedText;
+        }
+
+        // Function to format simple Markdown
+        function formatMarkdown(text) {
+            
+            return text
+
+                // Convert headings to custom CSS classes
+                .replace(/^(#{1,6})\s*(.*)/gm, (match, hashes, content) => {
+                    const level = hashes.length;
+                    return `<span class="custom-heading level-${level}">${content}</span>`;
+                })
+
+                // Convert bold
+                .replace(/\*\*(.*?)\*\*/g, '<span class="bold">$1</span>') // Bold
+                .replace(/__(.*?)__/g, '<span class="bold">$1</span>') // Bold
+                // Convert italic
+                .replace(/\*(.*?)\*/g, '<span class="italic">$1</span>') // Italic
+                .replace(/_(.*?)_/g, '<span class="italic">$1</span>') // Italic
+                // Purpel
+                .replace(/\$(.*?)\$/g, '<span class="purpel">$1</span>') // Purple
+                
+                // some crap to make it work.
+                .replaceAll("\n\n","<br>")
+                .replaceAll("\n","<br>")
+
+
+
+
+        }
+
+        // Update preview on input in the editable div
+        noteDiv.addEventListener('input', updatePreview);
+
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 's') {
+                e.preventDefault();
+                const blob = new Blob([noteDiv.innerText], { type: 'text/plain' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = 'note.fnote';
+                link.click();
+            }
+        });
+
+        dropZone.addEventListener('dragover', (e) => {
+            e.preventDefault();
+            document.body.style.filter = 'blur(3px)';
+        });
+
+        dropZone.addEventListener('dragleave', () => {
+            document.body.style.filter = 'blur(0px)';
+        });
+
+        dropZone.addEventListener('drop', (e) => {
+            e.preventDefault();
+            document.body.style.filter = 'blur(0px)';
+            const file = e.dataTransfer.files[0];
+            if (file && file.name.endsWith('.fnote')) {
+                const reader = new FileReader();
+                reader.onload = (event) => {
+                    noteDiv.innerText = event.target.result;
+                    updatePreview(); // Update the preview with the loaded note
+                };
+                reader.readAsText(file);
+            } else {
+                alert('Please drop a valid .fnote file.');
+            }
+        });
+    </script>
+</body>
+</html>
