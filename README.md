@@ -22,6 +22,11 @@ File format for Face Notes is called `.fnote` (old: `.facenote`, may cause compa
 <br>
 
 <div align="center">
+
+  # How to use?
+  Download `face_notes.html` file
+  Open `face_notes.html` file by double click or drag it to the browser.
+  Enjoy.
   
   # Features
   CTRL + S to save your note in **`.fnote`** format.
