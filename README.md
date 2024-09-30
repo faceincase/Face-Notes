@@ -3,9 +3,9 @@
 # Face Notes v1.2
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-</div>
+<img src="https://github.com/user-attachments/assets/dda7cfc2-2961-4d4a-abd4-85cecb97731d" width=700>
 
-![daw](https://github.com/user-attachments/assets/dda7cfc2-2961-4d4a-abd4-85cecb97731d)
+</div>
 
 # 🔮 Face Notes
 
