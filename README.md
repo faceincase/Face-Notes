@@ -7,6 +7,25 @@
 
 ![daw](https://github.com/user-attachments/assets/dda7cfc2-2961-4d4a-abd4-85cecb97731d)
 
+# 🔮 Face Notes
+
+🚨 Under development. 🚨
+
+Simple Notes app built on the HTML5 & CSS3.
+
+It's a tool designed to be easy and lightweight, tasks are stored using `.fnote` format for compact size.
+
+There's some screenshots below, you can use it anywhere as `github.io` version or run it locally by downloading the `.HTML` file
+
+## ✨ Use on [github](https://faceincase.github.io/Face-Notes/face_notes.html)
+## ✨ Use locally:
+- Download `face_notes.html` file
+- Open `face_notes.html` file by double click or drag it to the browser.
+- Enjoy.
+# 🔮 Features
+- **CTRL + S** to save your note in **`.fnotes`** format.
+- Drag **`.fnotes`** file to open saved notes.
+
 ![image](https://github.com/user-attachments/assets/af9d048e-e937-4e0a-8ad7-2e24f4dd83d9)
 
 <br>
@@ -24,22 +43,11 @@ File format for Face Notes is called `.fnote` (old: `.facenote`, may cause compa
 
 
 
-# How to use?
-- Use on [`Github`](https://faceincase.github.io/Face-Notes/face_notes.html)
-- Use locally:
-  - Download `face_notes.html` file
-  - Open `face_notes.html` file by double click or drag it to the browser.
-  - Enjoy.
-
-# Features
-- CTRL + S to save your note in **`.fnote`** format.
-- Drag **`.fnote`** file to open saved notes.
-
 # Known issues:
 - Notes were encoded using `.btoa()` and `.atob()` methods, which do not actually compress data and resulted in 33% increase of file size.
   - This has been changed. Compression removed and data is saved in plain text.
 
-- This compression might work better, however it is not dested nor implemented yet:
+- This compression might work better, however it is not tested nor implemented yet:
 ```js
 async function compressData(file_data) {
     // Convert the string into a Uint8Array
