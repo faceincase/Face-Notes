@@ -25,7 +25,6 @@ File format for Face Notes is called `.fnote` (old: `.facenote`, may cause compa
 
 
 # How to use?
-
 - Use on [`Github`](https://faceincase.github.io/Face-Notes/face_notes.html)
 - Use locally:
   - Download `face_notes.html` file
@@ -39,3 +38,57 @@ File format for Face Notes is called `.fnote` (old: `.facenote`, may cause compa
 # Known issues:
 - Notes were encoded using `.btoa()` and `.atob()` methods, which do not actually compress data and resulted in 33% increase of file size.
   - This has been changed. Compression removed and data is saved in plain text.
+
+- This compression might work better, however it is not dested nor implemented yet:
+```js
+async function compressData(file_data) {
+    // Convert the string into a Uint8Array
+    const encoder = new TextEncoder();
+    const dataBuffer = encoder.encode(file_data);
+  
+    // Use CompressionStream to compress
+    const compressedStream = new CompressionStream('deflate');
+    const writer = compressedStream.getWriter();
+    writer.write(dataBuffer);
+    writer.close();
+
+    // Read the compressed data
+    const compressedArray = [];
+    const reader = compressedStream.getReader();
+    while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        compressedArray.push(value);
+    }
+  
+    // Combine the chunks of compressed data
+    return new Blob(compressedArray).arrayBuffer();
+}
+
+async function decompressData(compressedBuffer) {
+    // Create a DecompressionStream to decompress
+    const decompressedStream = new DecompressionStream('deflate');
+    const writer = decompressedStream.getWriter();
+  
+    // Write the compressed buffer to decompression stream
+    const compressedArray = new Uint8Array(compressedBuffer);
+    writer.write(compressedArray);
+    writer.close();
+
+    // Read the decompressed data
+    const decompressedArray = [];
+    const reader = decompressedStream.getReader();
+    while (true) {
+        const { done, value } = await reader.read();
+        if (done) break;
+        decompressedArray.push(value);
+    }
+
+    // Combine the chunks of decompressed data
+    const resultBuffer = await new Blob(decompressedArray).arrayBuffer();
+
+    // Decode the result back to a string
+    const decoder = new TextDecoder();
+    return decoder.decode(resultBuffer);
+}
+```
