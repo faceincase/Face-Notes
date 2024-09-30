@@ -38,4 +38,4 @@ File format for Face Notes is called `.fnote` (old: `.facenote`, may cause compa
 
 # Known issues:
 - Notes were encoded using `.btoa()` and `.atob()` methods, which do not actually compress data and resulted in 33% increase of file size.
- - This has been changed. Compression removed and data is saved in plain text.
+  - This has been changed. Compression removed and data is saved in plain text.
