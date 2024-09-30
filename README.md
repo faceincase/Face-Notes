@@ -26,19 +26,17 @@ File format for Face Notes is called `.fnote` (old: `.facenote`, may cause compa
 
 # How to use?
 
-## Use on github:
-**[Here](https://faceincase.github.io/Face-Notes/face_notes.html)** you can access the site.
-<br>
-## Use locally:
-Download `face_notes.html` file
-<br>
-Open `face_notes.html` file by double click or drag it to the browser.
-<br>
-Enjoy.
-<br>
+- Use on [`Github`](https://faceincase.github.io/Face-Notes/face_notes.html)
+- Use locally:
+  - Download `face_notes.html` file
+  - Open `face_notes.html` file by double click or drag it to the browser.
+  - Enjoy.
 
 # Features
-CTRL + S to save your note in **`.fnote`** format.
+- CTRL + S to save your note in **`.fnote`** format.
+- Drag **`.fnote`** file to open saved notes.
+
+# Known issues:
+For a short while, notes were encoded using `.btoa()` and `.atob()` methods, which do not actually compress data and resulted in 33% increase of file size.
 <br>
-Drag **`.fnote`** file to open saved notes.
-<br>
+This issue has been fixed.
