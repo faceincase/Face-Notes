@@ -8,42 +8,55 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Face Notes</title>
     <style>
-        body { 
+        body {             
             font-family: 'Shantell Sans'; 
             margin: 20px; 
-            background-color: #121212; 
+            background-color: #0d0d0d; /* Slightly darker for contrast */
             color: #e0e0e0;
+            line-height: 1.6; /* Improved readability */
         }
 
         .main {
-            font-size: 32px;
-            font-weight: bold;
-            color: #b999e0;
+            font-size: 36px; /* Increased font size */
+            font-weight: 700; /* Bold weight for text */
+            color: #a57dc9; /* Softer color for primary header */
             text-align: center;
+            padding-bottom: 15px;
+            margin-bottom: 20px; /* Added margin for spacing */
         }
 
         #note { 
-
             height: 300px; 
             background-color: #1e1e1e; 
             color: #e0e0e0; 
-            border: 1px solid #333; 
-            border-radius: 5px; 
+            border: none; /* Removed border for a cleaner look */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Added shadow for depth */
+            border-radius: 15px; 
             font-size: 16px;
-            padding: 10px; 
+            padding: 15px; /* Increased padding for space */
             overflow-y: auto;
             outline: none; /* Remove outline when focused */
-
-            font-family: "Consolas";
+            font-family: "Consolas", monospace; /* Ensure the font is monospace */
+            transition: background-color 0.3s; /* Smooth background transition */
+        }
+        
+        #note:focus { 
+            background-color: #2a2a2a; /* Highlight when focused */
         }
 
         #preview { 
-            border: 1px solid #333; 
-            padding: 10px; 
+            border: none; /* Removed border for consistency */
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5); /* Added shadow for depth */
+            padding: 20px; /* Increased padding for comfort */
             margin-top: 20px; 
             background-color: #1e1e1e; 
-            border-radius: 5px;
+            border-radius: 15px;
             font-size: 18px;
+            transition: transform 0.2s; /* Smooth hover transition */
+        }
+
+        #preview:hover {
+            transform: scale(1.01); /* Slightly scale up on hover */
         }
 
         .bold { 
@@ -144,14 +157,24 @@
         noteDiv.addEventListener('input', updatePreview);
 
         document.addEventListener('keydown', (e) => {
-            if (e.ctrlKey && e.key === 's') {
+
+            if (e.ctrlKey && e.key === 's')
+            {
                 e.preventDefault();
-                const blob = new Blob([noteDiv.innerText], { type: 'text/plain' });
+
+                file_data = noteDiv.innerText;
+
+                // file_data = btoa(file_data) // Turns out this is not a compression method, it makes file 33% bigger.
+
+                
+
+                const blob = new Blob([file_data], { type: 'text/plain' });
                 const link = document.createElement('a');
                 link.href = URL.createObjectURL(blob);
                 link.download = 'note.fnote';
                 link.click();
             }
+
         });
 
         dropZone.addEventListener('dragover', (e) => {
@@ -166,15 +189,26 @@
         dropZone.addEventListener('drop', (e) => {
             e.preventDefault();
             document.body.style.filter = 'blur(0px)';
+
             const file = e.dataTransfer.files[0];
+
             if (file && file.name.endsWith('.fnote')) {
+
                 const reader = new FileReader();
                 reader.onload = (event) => {
-                    noteDiv.innerText = event.target.result;
-                    updatePreview(); // Update the preview with the loaded note
+
+                    file_data = event.target.result;
+
+                    // file_data = atob(file_data)  // Turns out this is not a compression method, it makes file 33% bigger.
+
+                    noteDiv.innerText = file_data;
+                    updatePreview();
                 };
                 reader.readAsText(file);
-            } else {
+
+            }
+            else
+            {
                 alert('Please drop a valid .fnote file.');
             }
         });
